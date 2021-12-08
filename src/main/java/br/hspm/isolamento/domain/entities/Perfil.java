@@ -10,25 +10,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
+
 @Data
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name= "perfis")
-public class Perfil implements GrantedAuthority{
-	
-	  /**
-	 * 
-	 */
+@Table(name = "perfis")
+public class Perfil implements GrantedAuthority {
+
+	/**
+	* 
+	*/
 	private static final long serialVersionUID = 1L;
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Long id;
-	    private String nome;
-		@Override
-		public String getAuthority() {
-			
-			return this.nome;
-		}
+	private Long id;
+	private String nome;
+
+	@Override
+	public String getAuthority() {
+
+		return this.nome;
+	}
 
 }
