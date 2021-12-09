@@ -31,8 +31,8 @@ public class SpringFoxSwaggerConfigurations {
 			
 	private ApiInfo apiInfo() {
 	    return new ApiInfoBuilder()
-	            .title("Aplicação de uma Livraria Online")
-	            .description("Um exemplo de aplicação Spring Boot REST API")
+	            .title("Sistema de Isolamento")
+	            .description("Aplicação para o gerenciamento de pacientes com MDR(Multidrug-Resistant)")
 	            .version("1.0.0")
 	            .license("Apache License Version 2.0")
 	            .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")

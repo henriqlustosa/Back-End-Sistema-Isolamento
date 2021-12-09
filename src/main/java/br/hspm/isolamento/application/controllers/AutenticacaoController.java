@@ -1,10 +1,9 @@
 package br.hspm.isolamento.application.controllers;
 
-
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,15 +22,15 @@ import lombok.RequiredArgsConstructor;
 @Api(tags = "Autenticação")
 @RequiredArgsConstructor
 public class AutenticacaoController {
-	@Autowired
+	@Autowired @Lazy
 	private AutenticacaoService service;
-	
+
 	@ApiOperation("Autenticar Usuario")
-  @PostMapping
-  public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginFormDto dto) {
-	  String token = service.autenticar(dto);
-	  return ResponseEntity.ok(new TokenDto(token));
-	                                                
-  }
+	@PostMapping
+	public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginFormDto dto) {
+		String token = service.autenticar(dto);
+		return ResponseEntity.ok(new TokenDto(token));
+
+	}
 
 }
