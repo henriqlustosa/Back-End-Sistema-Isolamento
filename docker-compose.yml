@@ -1,0 +1,23 @@
+version: "3"
+services:
+  isolamento_database:
+    image: postgres:latest
+    expose:
+      - 5433
+    ports:
+      - 5433:5433
+    env_file:
+      - isolamento_database.env
+    command: -p 5433
+  
+
+  livraria_app:
+    image: hspm/isolamento-api
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    depends_on:
+      - isolamento_database
+    env_file:
+      - isolamento_app.env
