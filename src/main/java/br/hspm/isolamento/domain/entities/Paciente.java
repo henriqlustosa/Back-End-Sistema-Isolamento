@@ -49,7 +49,16 @@ public class Paciente {
 	 @JoinColumn(name = "usuario_id")
 	 private Usuario usuario;
 	 
-	 
+	 public void atualizarInformacoes(Long prontuario, String nome, String vinculo,String orgaoPrefeitura,Long rfMatricula,String nomeMae,LocalDate dataNascimento) {
+			this.prontuario = prontuario;
+			this.nome = nome;
+			this.vinculo = vinculo;
+			this.orgaoPrefeitura = orgaoPrefeitura;
+			this.rfMatricula = rfMatricula;
+			this.nomeMae = nomeMae;
+			this.dataNascimento = dataNascimento;
+
+		}
 	 
 	 
 

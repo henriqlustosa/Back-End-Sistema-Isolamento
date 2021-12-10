@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.modelmapper.convention.MatchingStrategies;
 
 import br.hspm.isolamento.application.dtos.request.PacienteFormDto;
+import br.hspm.isolamento.application.dtos.request.PacienteUpdateFormDto;
+import br.hspm.isolamento.application.dtos.response.PacienteDetalhadoDto;
 import br.hspm.isolamento.application.dtos.response.PacienteDto;
 import br.hspm.isolamento.domain.entities.Paciente;
 import br.hspm.isolamento.domain.entities.Usuario;
@@ -75,7 +77,38 @@ public class PacienteService {
 		} catch (DataIntegrityViolationException e) {
 			throw new DomainException("Usuario inválido");
 		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException("Usuario não encontrado!");
+			throw new ResourceNotFoundException("Usuario inválido!");
 		}
+	}
+	
+	@Transactional(readOnly = true)
+	public PacienteDetalhadoDto findById(Long id,  Usuario usuarioLogado) {
+		Paciente paciente = verifyIfExists(id);
+		if (!paciente.getUsuario().equals(usuarioLogado)) {
+			throw obterExcecaoDeAcessoNegado();
+		}
+		return modelMapper.map(paciente, PacienteDetalhadoDto.class);
+	}
+	
+	@Transactional
+	public PacienteDto update(PacienteUpdateFormDto pacienteUpdateFormDto, Usuario usuarioLogado) {
+		try {
+			Paciente paciente = pacienteRepository.getById(pacienteUpdateFormDto.getId());
+			if (!paciente.getUsuario().equals(usuarioLogado)) {
+				throw obterExcecaoDeAcessoNegado();
+			}
+			paciente.atualizarInformacoes(pacienteUpdateFormDto.getProntuario(), pacienteUpdateFormDto.getNome(),pacienteUpdateFormDto.getVinculo(), pacienteUpdateFormDto.getOrgaoPrefeitura(),
+					pacienteUpdateFormDto.getRfMatricula(),pacienteUpdateFormDto.getNomeMae(), pacienteUpdateFormDto.getDataNascimento());
+			pacienteRepository.save(paciente);
+			return modelMapper.map(paciente, PacienteDto.class);
+
+		} catch (EntityNotFoundException e) {
+
+			throw new ResourceNotFoundException("paciente inexistente: " + pacienteUpdateFormDto.getId());
+		}
+	}
+	private Paciente verifyIfExists(Long id) {
+		return pacienteRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("paciente não encontrado: " + id));
 	}
 }
