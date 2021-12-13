@@ -41,7 +41,7 @@ import br.hspm.isolamento.domain.services.TokenService;
 import br.hspm.isolamento.infra.repositories.PacienteRepository;
 import br.hspm.isolamento.infra.repositories.UsuarioRepository;
 import br.hspm.isolamento.mocks.PacienteFactory;
-import br.hspm.isolamento.mocks.UsuarioFactory;
+
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
