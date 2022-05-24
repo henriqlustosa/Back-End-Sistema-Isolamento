@@ -27,36 +27,27 @@ public class Paciente {
 	
 	
 	 @Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
-	 private Long id;
-	 
 	 private Long prontuario;
 	 
 	 private String nome;
 	 
-	 private String vinculo;
+	 private LocalDate dtNascimento;
 	 
-	 private String orgaoPrefeitura;
+	 private String sexo;
 	 
-	 private Long rfMatricula;
+	 private String obito;
 	 
-	 private String nomeMae;
-	 
-	 private LocalDate dataNascimento;
+	 private LocalDate dtObito;
 	 
 	 
-	 @ManyToOne()
-	 @JoinColumn(name = "usuario_id")
-	 private Usuario usuario;
-	 
-	 public void atualizarInformacoes(Long prontuario, String nome, String vinculo,String orgaoPrefeitura,Long rfMatricula,String nomeMae,LocalDate dataNascimento) {
-			this.prontuario = prontuario;
+	 public void atualizarInformacoes( String nome, LocalDate dtNascimento, String sexo,String obito,LocalDate dtObito) {
+		
 			this.nome = nome;
-			this.vinculo = vinculo;
-			this.orgaoPrefeitura = orgaoPrefeitura;
-			this.rfMatricula = rfMatricula;
-			this.nomeMae = nomeMae;
-			this.dataNascimento = dataNascimento;
+			this.dtNascimento = dtNascimento;
+			this.sexo = sexo;
+			this.obito = obito;
+			this.dtObito = dtObito;
+		
 
 		}
 	 

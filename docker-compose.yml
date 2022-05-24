@@ -11,7 +11,7 @@ services:
     command: -p 5433
   
 
-  livraria_app:
+  isolamento_app:
     image: hspm/isolamento-api
     expose:
       - 8080

@@ -27,25 +27,24 @@ import lombok.experimental.SuperBuilder;
 public class PacienteFormDto {
 	
 	
-	 private Long prontuario;
-	 
+	@NotNull
+	private Long prontuario;
+	
 	 private String nome;
+	 @PastOrPresent
+	 private LocalDate dtNascimento;
 	 
-	 private String vinculo;
+	 private String sexo;
 	 
-	 private String orgaoPrefeitura;
-	 
-	 private Long rfMatricula;
-	 
-	 private String nomeMae;
+	 private String obito;
 	 
 	 @PastOrPresent
-	 private LocalDate dataNascimento;
+	 private LocalDate dtObito;
+
+	
 	
 
 
-	@NotNull
-    @JsonAlias("usuario_id")
-    private Long usuarioId;
+
 
 }

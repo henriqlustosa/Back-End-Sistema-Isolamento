@@ -9,20 +9,18 @@ import lombok.Setter;
 @Setter
 public class PacienteDto {
 
-	private Long id;
+
 
 	private Long prontuario;
 
 	private String nome;
 
-	private String vinculo;
+	private LocalDate dtNascimento;
 
-	private String orgaoPrefeitura;
+	private String sexo;
 
-	private Long rfMatricula;
+	private String obito;
 
-	private String nomeMae;
-
-	private LocalDate dataNascimento;
+	private LocalDate dtObito;
 
 }

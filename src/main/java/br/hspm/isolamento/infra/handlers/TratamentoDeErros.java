@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import br.hspm.isolamento.domain.exceptions.*;
-import lombok.var;
 
 @RestControllerAdvice
 public class TratamentoDeErros {
@@ -47,7 +46,7 @@ public class TratamentoDeErros {
 
 	private ResponseEntity<ErrorResponse> buildErrorResponse(Exception ex, HttpStatus status, String message,
 			String path) {
-		var errorResponse = ErrorResponse.builder().status(status.value()).erro(ex.getClass().getSimpleName())
+		ErrorResponse errorResponse = ErrorResponse.builder().status(status.value()).erro(ex.getClass().getSimpleName())
 				.message(message).caminho(path).build();
 
 		return ResponseEntity.status(status).body(errorResponse);
