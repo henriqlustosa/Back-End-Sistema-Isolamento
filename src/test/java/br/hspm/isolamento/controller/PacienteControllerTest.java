@@ -41,7 +41,11 @@ import br.hspm.isolamento.domain.services.TokenService;
 import br.hspm.isolamento.infra.repositories.PacienteRepository;
 import br.hspm.isolamento.infra.repositories.UsuarioRepository;
 import br.hspm.isolamento.mocks.PacienteFactory;
+<<<<<<< HEAD
 
+=======
+//import br.hspm.isolamento.mocks.UsuarioFactory;
+>>>>>>> desenvolvimento
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -100,15 +104,15 @@ public class PacienteControllerTest {
 	
 		
 		
-		paciente = PacienteFactory.criarPaciente(  11209913L , "Lorem Ipsum" , "Munícipe" , "HSPM-SP"          ,     85331300L , "Update Sonia Maria Dias Lustosa" , LocalDate.parse("1982-02-03"),usuarioLogado) ;
+		paciente = PacienteFactory.criarPaciente(  "Henrique Lustosa Ribeiro Faria" , LocalDate.parse("1982-02-03") ,"Masculino" , "Sim" , LocalDate.parse("2022-02-03")) ;
 		
 		
 		
 		Paciente pacienteSaved =pacienteRepository.save(paciente);
 		
-		existingId = pacienteSaved.getId();
+		existingId = pacienteSaved.getProntuario();
 		
-		pacienteUpdated = PacienteFactory.criarPaciente(existingId ,  11209913L , "Update Lorem Ipsum" , "Munícipe" , "HSPM-SP"          ,     85331300L , "Update Sonia Maria Dias Lustosa" , LocalDate.parse("1982-02-03"),usuarioLogado) ;
+		pacienteUpdated = PacienteFactory.criarPaciente(existingId , "Update" , LocalDate.parse("1982-02-03") ,"Masculino" , "Sim" , LocalDate.parse("2022-02-03")) ;
         pacienteResponseDto = modelMapper.map(pacienteSaved, PacienteDto.class);
     
     	 
@@ -123,7 +127,7 @@ public class PacienteControllerTest {
     @Test
     void findByIdShouldReturnAnBookWhenIdExists() throws Exception {
         mockMvc.perform(get("/pacientes/{id}", existingId).header(HttpHeaders.AUTHORIZATION, token)).andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(pacienteResponseDto.getId()));
+                .andExpect(jsonPath("$.id").value(pacienteResponseDto.getProntuario()));
     }
     @Test
     void criarShouldReturnBadRequestWhenInvalidDataWasProvided() throws Exception {
@@ -139,7 +143,7 @@ public class PacienteControllerTest {
 
         mockMvc.perform(post("/pacientes").contentType(MediaType.APPLICATION_JSON).content(validData).header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(header().exists("Location")).andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(pacienteResponseDto.getId() + 1l));
+                .andExpect(jsonPath("$.id").value(pacienteResponseDto.getProntuario() ));
         
     }
 
@@ -148,13 +152,13 @@ public class PacienteControllerTest {
         String validData = objectMapper.writeValueAsString(pacienteUpdateFormDto);
 
         mockMvc.perform(put("/pacientes").contentType(MediaType.APPLICATION_JSON).content(validData).header(HttpHeaders.AUTHORIZATION, token))
-                .andExpect(status().isOk()).andExpect(jsonPath("$.id").value(pacienteAtualizaResponseDto.getId()))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.id").value(pacienteAtualizaResponseDto.getProntuario()))
                 .andExpect(jsonPath("$.nome").value(pacienteAtualizaResponseDto.getNome()));
     }
 
     @Test
     void atualizarShouldReturnBadRequestWhenInvalidData() throws Exception {
-        pacienteUpdateFormDto.setDataNascimento( LocalDate.parse("2022-01-01"));
+        pacienteUpdateFormDto.setDtNascimento( LocalDate.parse("2022-07-01"));
         String invalidData = objectMapper.writeValueAsString(pacienteUpdateFormDto);
 
         mockMvc.perform(put("/pacientes").contentType(MediaType.APPLICATION_JSON).content(invalidData).header(HttpHeaders.AUTHORIZATION, token))

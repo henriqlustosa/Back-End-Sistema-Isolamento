@@ -37,25 +37,25 @@ public class PacienteController {
 	private PacienteService pacienteService;
 	
 	@GetMapping
-	public Page<PacienteDto> listar(@PageableDefault(size = 10) Pageable paginacao,@ApiIgnore @AuthenticationPrincipal Usuario usuarioLogado ) {
-		return pacienteService.listarTodos(paginacao, usuarioLogado);
+	public Page<PacienteDto> listar(@PageableDefault(size = 10) Pageable paginacao ) {
+		return pacienteService.listarTodos(paginacao);
 
 	}
-	@DeleteMapping("/{id}")
-	public ResponseEntity<PacienteDto>  deleteById(@PathVariable Long id, @ApiIgnore @AuthenticationPrincipal Usuario usuarioLogado )  {
-		pacienteService.deletar(id,usuarioLogado);
+	@DeleteMapping("/{prontuario}")
+	public ResponseEntity<PacienteDto>  deleteById(@PathVariable Long prontuario )  {
+		pacienteService.deletar(prontuario);
 		  return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	@PostMapping
-	public ResponseEntity<PacienteDto> createPaciente(@RequestBody @Valid PacienteFormDto pacienteFormDto, UriComponentsBuilder uriBuilder,@ApiIgnore @AuthenticationPrincipal Usuario usuarioLogado ) {
+	public ResponseEntity<PacienteDto> createPaciente(@RequestBody @Valid PacienteFormDto pacienteFormDto, UriComponentsBuilder uriBuilder ) {
 		
 		
-		PacienteDto pacienteDto = pacienteService.cadastroPaciente(pacienteFormDto, usuarioLogado);
+		PacienteDto pacienteDto = pacienteService.cadastroPaciente(pacienteFormDto);
 		
 		
 		URI uri = uriBuilder
-				.path("/pacientes/{id}")
-				.buildAndExpand(pacienteDto.getId())
+				.path("/pacientes/{prontuario}")
+				.buildAndExpand(pacienteDto.getProntuario())
 				.toUri();
 
 		
@@ -63,17 +63,17 @@ public class PacienteController {
 	}
 
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<PacienteDto>findById(@PathVariable Long id,@ApiIgnore @AuthenticationPrincipal Usuario usuarioLogado ) {
-		return new ResponseEntity<>(pacienteService.findById(id, usuarioLogado), HttpStatus.OK);
+	@GetMapping("/{prontuario}")
+	public ResponseEntity<PacienteDto>findById(@PathVariable Long prontuario,@ApiIgnore @AuthenticationPrincipal Usuario usuarioLogado ) {
+		return new ResponseEntity<>(pacienteService.findById(prontuario,usuarioLogado), HttpStatus.OK);
 
 	}		
 	@PutMapping
-	public ResponseEntity<PacienteDto>  update( @RequestBody @Valid PacienteUpdateFormDto pacienteUpdateFormDto,@ApiIgnore @AuthenticationPrincipal Usuario usuarioLogado )
+	public ResponseEntity<PacienteDto>  update( @RequestBody @Valid PacienteUpdateFormDto pacienteUpdateFormDto )
 		{
 		
 		
-			return new ResponseEntity<>(pacienteService.update(pacienteUpdateFormDto, usuarioLogado), HttpStatus.OK);
+			return new ResponseEntity<>(pacienteService.update(pacienteUpdateFormDto), HttpStatus.OK);
 	}
 	
 	

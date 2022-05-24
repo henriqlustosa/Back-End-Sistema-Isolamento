@@ -14,20 +14,20 @@ public class PacienteFactory {
     private static ModelMapper modelMapper = new ModelMapper();
     
     public static Paciente criarPaciente() {
-        return new Paciente(1L ,  11209913L , "Henrique Lustosa Ribeiro Faria" , "Munícipe" , "HSPM-SP"          ,     85331300L , "Sonia Maria Dias Lustosa" , LocalDate.parse("1982-02-03")      ,  UsuarioFactory.criarUsuario());
+        return new Paciente( 11209913L , "Henrique Lustosa Ribeiro Faria" , LocalDate.parse("1982-02-03") ,"Masculino" , "Sim" , LocalDate.parse("2022-02-03")  );
     }
     public static Paciente criarPacienteSemId() {
-        return new Paciente(null, 11209913L , "Henrique Lustosa Ribeiro Faria" , "Munícipe" , "HSPM-SP"          ,     85331300L , "Sonia Maria Dias Lustosa" , LocalDate.parse("1982-02-03")      ,  UsuarioFactory.criarUsuario());
+        return new Paciente(null,"Helio RIberio de Faria" , LocalDate.parse("1950-01-01") ,"Masculino" , "Sim" , LocalDate.parse("2022-05-06")   );
     }
     
     public static Paciente criarPacienteAtualizado() {
-        return new Paciente(1L ,  11209913L , "Update Lorem Ipsum" , "Munícipe" , "HSPM-SP"          ,     85331300L , "Update Sonia Maria Dias Lustosa" , LocalDate.parse("1982-02-03")      ,  UsuarioFactory.criarUsuario());
+        return new Paciente(11209913L , "Update Lorem Ipsum" , LocalDate.parse("1950-01-01") ,"Masculino" , "Sim" , LocalDate.parse("2022-05-06")   );
     }
-    public static Paciente criarPaciente(Long prontuario,String nome,String vinculo,String orgaoPrefeitura, Long rfMatricula, String nomeMae, LocalDate dataLancamento,  Usuario usuario) {
-        return new Paciente(null, prontuario, nome, vinculo, orgaoPrefeitura, rfMatricula, nomeMae, dataLancamento, usuario);
+    public static Paciente criarPaciente(String nome,LocalDate dtNascimento,String sexo, String obito, LocalDate dtObito) {
+        return new Paciente( null, nome, dtNascimento, sexo, obito, dtObito);
     }
-    public static Paciente criarPaciente( Long id,Long prontuario,String nome,String vinculo,String orgaoPrefeitura, Long rfMatricula, String nomeMae, LocalDate dataLancamento,  Usuario usuario) {
-        return new Paciente(id, prontuario, nome, vinculo, orgaoPrefeitura, rfMatricula, nomeMae, dataLancamento, usuario);
+    public static Paciente criarPaciente( Long prontuario,String nome,LocalDate dtNascimento,String sexo, String obito, LocalDate dtObito) {
+        return new Paciente( prontuario, nome, dtNascimento, sexo, obito, dtObito);
     }
     public static PacienteDto criarPacienteResponseDto() {
         return modelMapper.map(criarPaciente(), PacienteDto.class);
@@ -50,6 +50,6 @@ public class PacienteFactory {
 	
 	
     public static PacienteUpdateFormDto criarPacienteUpdateFormDtoComIdInvalido() {
-        return PacienteUpdateFormDto.builder().id(200L).build();
+        return PacienteUpdateFormDto.builder().prontuario(200L).build();
     }
 }

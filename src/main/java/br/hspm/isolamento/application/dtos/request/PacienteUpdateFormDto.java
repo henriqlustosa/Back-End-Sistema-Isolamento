@@ -1,6 +1,8 @@
 package br.hspm.isolamento.application.dtos.request;
 
-import javax.validation.constraints.NotNull;
+
+
+
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +14,5 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 public class PacienteUpdateFormDto  extends PacienteFormDto  {
-	@NotNull
-	private Long id;
+
 }
