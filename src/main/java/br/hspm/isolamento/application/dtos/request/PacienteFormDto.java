@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import javax.validation.constraints.PastOrPresent;
 
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
